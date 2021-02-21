@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "metadata", ".\", "{F1A57014-71CE-4032-A652-01B7E35E14DB}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+		stylecop.json = stylecop.json
+		stylecop.ruleset = stylecop.ruleset
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results", "Remora.Results\Remora.Results.csproj", "{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
