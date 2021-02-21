@@ -44,5 +44,11 @@ namespace Remora.Results
         /// Gets the inner result, if any.
         /// </summary>
         IResult? Inner { get; }
+
+        /// <summary>
+        /// Gets the innermost error.
+        /// </summary>
+        /// <returns>The innermost error.</returns>
+        IResultError Unwrap();
     }
 }
