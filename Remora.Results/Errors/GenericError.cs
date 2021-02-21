@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using JetBrains.Annotations;
 
 namespace Remora.Results
@@ -28,5 +29,6 @@ namespace Remora.Results
     /// Represents a simple generic human-readable error message.
     /// </summary>
     [PublicAPI]
+    [Obsolete("Prefer using a more specific error type.")]
     public sealed record GenericError(string Message) : ResultError(Message);
 }
