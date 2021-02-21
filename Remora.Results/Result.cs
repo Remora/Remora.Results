@@ -49,6 +49,11 @@ namespace Remora.Results
         /// <param name="inner">The inner result, if any.</param>
         private Result(IResultError? error, IResult? inner)
         {
+            if (error is WrappedError && inner is null)
+            {
+                throw new InvalidOperationException("Wrapped errors must actually wrap an inner error.");
+            }
+
             this.Error = error;
             this.Inner = inner;
         }
@@ -160,6 +165,11 @@ namespace Remora.Results
         /// <param name="inner">The inner result, if any.</param>
         private Result(TEntity? entity, IResultError? error, IResult? inner)
         {
+            if (error is WrappedError && inner is null)
+            {
+                throw new InvalidOperationException("Wrapped errors must actually wrap an inner error.");
+            }
+
             this.Error = error;
             this.Inner = inner;
             this.Entity = entity;
