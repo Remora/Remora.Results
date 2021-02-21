@@ -83,7 +83,8 @@ namespace Remora.Results
         /// Creates a new successful result.
         /// </summary>
         /// <returns>The successful result.</returns>
-        public static Result FromSuccess() => new(default, default);
+        public static Result FromSuccess()
+            => new(default, default);
 
         /// <summary>
         /// Creates a new failed result.
@@ -110,9 +111,7 @@ namespace Remora.Results
         /// <param name="error">The error.</param>
         /// <returns>The failed result.</returns>
         public static implicit operator Result(ResultError error)
-        {
-            return new(error, default);
-        }
+            => new(error, default);
 
         /// <summary>
         /// Converts an exception into a failed result.
@@ -120,9 +119,7 @@ namespace Remora.Results
         /// <param name="exception">The exception.</param>
         /// <returns>The failed result.</returns>
         public static implicit operator Result(Exception exception)
-        {
-            return new(new ExceptionError(exception), default);
-        }
+            => new(new ExceptionError(exception), default);
     }
 
     /// <inheritdoc />
