@@ -53,6 +53,29 @@ namespace Remora.Results
             this.Inner = inner;
         }
 
+        /// <inheritdoc/>
+        public IResultError Unwrap()
+        {
+            if (this.IsSuccess)
+            {
+                // Unwrapping successful results makes no sense
+                throw new InvalidOperationException();
+            }
+
+            if (this.Error is not WrappedError)
+            {
+                return this.Error;
+            }
+
+            if (this.Inner is null)
+            {
+                // Wrapped errors may not exist on results without an inner error
+                throw new InvalidOperationException();
+            }
+
+            return this.Inner.Unwrap();
+        }
+
         /// <summary>
         /// Creates a new successful result.
         /// </summary>
@@ -140,6 +163,29 @@ namespace Remora.Results
             this.Error = error;
             this.Inner = inner;
             this.Entity = entity;
+        }
+
+        /// <inheritdoc/>
+        public IResultError Unwrap()
+        {
+            if (this.IsSuccess)
+            {
+                // Unwrapping successful results makes no sense
+                throw new InvalidOperationException();
+            }
+
+            if (this.Error is not WrappedError)
+            {
+                return this.Error;
+            }
+
+            if (this.Inner is null)
+            {
+                // Wrapped errors may not exist on results without an inner error
+                throw new InvalidOperationException();
+            }
+
+            return this.Inner.Unwrap();
         }
 
         /// <summary>
