@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using JetBrains.Annotations;
 
 namespace Remora.Results
@@ -48,6 +49,7 @@ namespace Remora.Results
         /// <summary>
         /// Gets the innermost error.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if the result is successful.</exception>
         /// <returns>The innermost error.</returns>
         IResultError Unwrap();
     }
