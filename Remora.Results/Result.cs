@@ -103,14 +103,6 @@ namespace Remora.Results
             => new(new WrappedError(), result);
 
         /// <summary>
-        /// Creates a new failed result from another result.
-        /// </summary>
-        /// <param name="result">The error.</param>
-        /// <returns>The failed result.</returns>
-        public static Result FromError(Result result)
-            => new(new WrappedError(), result);
-
-        /// <summary>
         /// Converts an error into a failed result.
         /// </summary>
         /// <param name="error">The error.</param>
