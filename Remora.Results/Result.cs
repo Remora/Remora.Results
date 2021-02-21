@@ -88,10 +88,12 @@ namespace Remora.Results
         /// <summary>
         /// Creates a new failed result.
         /// </summary>
+        /// <typeparam name="TError">The error type.</typeparam>
         /// <param name="error">The error.</param>
         /// <param name="inner">The inner error that caused this error, if any.</param>
         /// <returns>The failed result.</returns>
-        public static Result FromError(IResultError error, IResult? inner = default) => new(error, inner);
+        public static Result FromError<TError>(TError error, IResult? inner = default) where TError : IResultError
+            => new(error, inner);
 
         /// <summary>
         /// Creates a new failed result from another result.
@@ -196,10 +198,20 @@ namespace Remora.Results
         /// <summary>
         /// Creates a new failed result.
         /// </summary>
+        /// <typeparam name="TError">The error type.</typeparam>
+        /// <param name="error">The error.</param>
+        /// <returns>The failed result.</returns>
+        public static Result<TEntity> FromError<TError>(TError error) where TError : IResultError
+            => new(default, error, default);
+
+        /// <summary>
+        /// Creates a new failed result.
+        /// </summary>
+        /// <typeparam name="TError">The error type.</typeparam>
         /// <param name="error">The error.</param>
         /// <param name="inner">The inner error that caused this error, if any.</param>
         /// <returns>The failed result.</returns>
-        public static Result<TEntity> FromError(IResultError error, IResult? inner = default)
+        public static Result<TEntity> FromError<TError>(TError error, IResult? inner) where TError : IResultError
             => new(default, error, inner);
 
         /// <summary>
