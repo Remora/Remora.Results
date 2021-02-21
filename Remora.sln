@@ -13,6 +13,13 @@ EndProject
 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results", "Remora.Results\Remora.Results.csproj", "{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results.Tests", "Tests\Remora.Results.Tests\Remora.Results.Tests.csproj", "{62C4B205-5F47-48FA-8E1E-D0E844B9D258}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{30449774-E764-4161-89E6-2204B87338FC}"
+ProjectSection(SolutionItems) = preProject
+	Tests\Directory.Build.props = Tests\Directory.Build.props
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,7 +30,12 @@ Global
 		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{751BD927-2D82-4EB2-B7DE-8E506A7A95C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{62C4B205-5F47-48FA-8E1E-D0E844B9D258} = {30449774-E764-4161-89E6-2204B87338FC}
 	EndGlobalSection
 EndGlobal
