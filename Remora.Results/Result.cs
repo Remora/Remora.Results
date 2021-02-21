@@ -74,7 +74,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result FromError<TEntity>(Result<TEntity> result)
-            => new(new GenericError("An error occurred. See the inner result for details."), result);
+            => new(new WrappedError(), result);
 
         /// <summary>
         /// Creates a new failed result from another result.
@@ -82,7 +82,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result FromError(Result result)
-            => new(new GenericError("An error occurred. See the inner result for details."), result);
+            => new(new WrappedError(), result);
 
         /// <summary>
         /// Converts an error into a failed result.
@@ -165,7 +165,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError<TOtherEntity>(Result<TOtherEntity> result)
-            => new(default, new GenericError("An error occurred. See the inner result for details."), result);
+            => new(default, new WrappedError(), result);
 
         /// <summary>
         /// Creates a new failed result from another result.
@@ -173,7 +173,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError(Result result)
-            => new(default, new GenericError("An error occurred. See the inner result for details."), result);
+            => new(default, new WrappedError(), result);
 
         /// <summary>
         /// Converts an entity into a successful result.
