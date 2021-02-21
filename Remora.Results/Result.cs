@@ -63,8 +63,7 @@ namespace Remora.Results
         {
             if (this.IsSuccess)
             {
-                // Unwrapping successful results makes no sense
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Unwrapping successful results makes no sense.");
             }
 
             if (this.Error is not WrappedError)
@@ -74,8 +73,7 @@ namespace Remora.Results
 
             if (this.Inner is null)
             {
-                // Wrapped errors may not exist on results without an inner error
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Wrapped errors may not exist on results without an inner error.");
             }
 
             return this.Inner.Unwrap();
@@ -180,8 +178,7 @@ namespace Remora.Results
         {
             if (this.IsSuccess)
             {
-                // Unwrapping successful results makes no sense
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Unwrapping successful results makes no sense.");
             }
 
             if (this.Error is not WrappedError)
@@ -191,8 +188,7 @@ namespace Remora.Results
 
             if (this.Inner is null)
             {
-                // Wrapped errors may not exist on results without an inner error
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Wrapped errors may not exist on results without an inner error.");
             }
 
             return this.Inner.Unwrap();
