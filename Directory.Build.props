@@ -27,6 +27,7 @@
 
         <IncludeSymbols>true</IncludeSymbols>
         <IncludeSource>true</IncludeSource>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
         <RepositoryUrl>https://github.com/Nihlus/Remora</RepositoryUrl>
         <RepositoryBranch>master</RepositoryBranch>
