@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>4.0.0</Version>
+        <Version>4.0.1</Version>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Improve and rework overload coercion for implicit and explicit error wrapping.
+            Enable SourceLink.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
