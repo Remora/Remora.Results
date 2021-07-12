@@ -236,17 +236,7 @@ namespace Remora.Results.Tests
 
                 Assert.False(result.IsSuccess);
                 Assert.NotNull(result.Inner);
-                Assert.IsType<WrappedError>(result.Error);
-            }
-
-            /// <summary>
-            /// Tests whether <see cref="Result.FromSuccess"/> creates an unsuccessful result from a plain error
-            /// instance.
-            /// </summary>
-            [Fact]
-            public void ThrowsIfErrorIsWrappedErrorWithoutInner()
-            {
-                Assert.Throws<InvalidOperationException>(() => Result.FromError(new WrappedError()));
+                Assert.IsType<GenericError>(result.Error);
             }
         }
 

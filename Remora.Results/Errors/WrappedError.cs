@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using JetBrains.Annotations;
 
 namespace Remora.Results
@@ -28,6 +29,6 @@ namespace Remora.Results
     /// Represents a wrapped error message, where the actual fault can be found on the <see cref="IResult.Inner"/>
     /// result.
     /// </summary>
-    [PublicAPI]
+    [PublicAPI, Obsolete("No longer used. Access Error directly.")]
     public sealed record WrappedError() : ResultError("An error occurred. See the inner result for details.");
 }

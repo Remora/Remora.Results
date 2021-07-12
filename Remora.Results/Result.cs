@@ -49,12 +49,7 @@ namespace Remora.Results
         /// <param name="inner">The inner result, if any.</param>
         private Result(IResultError? error, IResult? inner)
         {
-            if (error is WrappedError && inner is null)
-            {
-                throw new InvalidOperationException("Wrapped errors must actually wrap an inner error.");
-            }
-
-            this.Error = error;
+            this.Error = error ?? inner?.Error;
             this.Inner = inner;
         }
 
@@ -91,9 +86,18 @@ namespace Remora.Results
         /// </summary>
         /// <typeparam name="TError">The error type.</typeparam>
         /// <param name="error">The error.</param>
+        /// <returns>The failed result.</returns>
+        public static Result FromError<TError>(TError error) where TError : IResultError
+            => new(error, default);
+
+        /// <summary>
+        /// Creates a new failed result.
+        /// </summary>
+        /// <typeparam name="TError">The error type.</typeparam>
+        /// <param name="error">The error.</param>
         /// <param name="inner">The inner error that caused this error, if any.</param>
         /// <returns>The failed result.</returns>
-        public static Result FromError<TError>(TError error, IResult? inner = default) where TError : IResultError
+        public static Result FromError<TError>(TError error, IResult inner) where TError : IResultError
             => new(error, inner);
 
         /// <summary>
@@ -103,7 +107,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result FromError<TEntity>(Result<TEntity> result)
-            => new(new WrappedError(), result);
+            => new(default, result);
 
         /// <summary>
         /// Converts an error into a failed result.
@@ -154,12 +158,7 @@ namespace Remora.Results
         /// <param name="inner">The inner result, if any.</param>
         private Result(TEntity? entity, IResultError? error, IResult? inner)
         {
-            if (error is WrappedError && inner is null)
-            {
-                throw new InvalidOperationException("Wrapped errors must actually wrap an inner error.");
-            }
-
-            this.Error = error;
+            this.Error = error ?? inner?.Error;
             this.Inner = inner;
             this.Entity = entity;
         }
@@ -208,7 +207,7 @@ namespace Remora.Results
         /// <param name="error">The error.</param>
         /// <param name="inner">The inner error that caused this error, if any.</param>
         /// <returns>The failed result.</returns>
-        public static Result<TEntity> FromError<TError>(TError error, IResult? inner) where TError : IResultError
+        public static Result<TEntity> FromError<TError>(TError error, IResult inner) where TError : IResultError
             => new(default, error, inner);
 
         /// <summary>
@@ -218,7 +217,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError<TOtherEntity>(Result<TOtherEntity> result)
-            => new(default, new WrappedError(), result);
+            => new(default, default, result);
 
         /// <summary>
         /// Creates a new failed result from another result.
@@ -226,7 +225,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError(Result result)
-            => new(default, new WrappedError(), result);
+            => new(default, default, result);
 
         /// <summary>
         /// Converts an entity into a successful result.

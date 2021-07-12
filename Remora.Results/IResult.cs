@@ -51,6 +51,7 @@ namespace Remora.Results
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the result is successful.</exception>
         /// <returns>The innermost error.</returns>
+        [Obsolete("WrappedError is no longer used. Access Error directly for the most recent error.")]
         IResultError Unwrap();
     }
 }
