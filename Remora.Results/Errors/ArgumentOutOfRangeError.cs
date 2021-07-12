@@ -30,6 +30,9 @@ namespace Remora.Results
     /// </summary>
     /// <param name="Name">The name of the argument.</param>
     /// <remarks>Used in place of <see cref="ArgumentOutOfRangeException"/>.</remarks>
-    public record ArgumentOutOfRangeError([InvokerParameterName] string Name)
-        : ArgumentError(Name, "Value was outside of the expected range");
+    public record ArgumentOutOfRangeError
+    (
+        [InvokerParameterName] string Name,
+        string Message = "Value was outside of the expected range"
+    ) : ArgumentError(Name, Message);
 }

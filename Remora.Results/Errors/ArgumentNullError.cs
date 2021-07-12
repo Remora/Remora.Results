@@ -30,5 +30,9 @@ namespace Remora.Results
     /// </summary>
     /// <param name="Name">The name of the argument.</param>
     /// <remarks>Used in place of <see cref="ArgumentNullException"/>.</remarks>
-    public record ArgumentNullError([InvokerParameterName] string Name) : ArgumentError(Name, "Value may not be null");
+    public record ArgumentNullError
+    (
+        [InvokerParameterName] string Name,
+        string Message = "Value may not be null"
+    ) : ArgumentError(Name, Message);
 }
