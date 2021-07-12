@@ -137,49 +137,6 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests the <see cref="Result.Unwrap"/> method.
-        /// </summary>
-        public class Unwrap
-        {
-            /// <summary>
-            /// Tests whether <see cref="Result.Unwrap"/> returns the error on the result itself if no wrapped error
-            /// exists.
-            /// </summary>
-            [Fact]
-            public void ReturnsCorrectObjectForPlainResult()
-            {
-                var expected = new GenericError("Dummy error");
-                var plainResult = Result.FromError(expected);
-
-                Assert.Same(expected, plainResult.Unwrap());
-            }
-
-            /// <summary>
-            /// Tests whether <see cref="Result.Unwrap"/> returns the wrapped error if one exists.
-            /// </summary>
-            [Fact]
-            public void ReturnsCorrectObjectForWrappedResult()
-            {
-                var expected = new GenericError("Dummy error");
-                var plainResult = Result.FromError(expected);
-                var wrappedResult = Result.FromError(new WrappedError(), plainResult);
-
-                Assert.Same(expected, wrappedResult.Unwrap());
-            }
-
-            /// <summary>
-            /// Tests whether <see cref="Result.Unwrap"/> throws an <see cref="InvalidOperationException"/> if the
-            /// result is successful.
-            /// </summary>
-            [Fact]
-            public void ThrowsIfResultIsSuccessful()
-            {
-                var successful = Result.FromSuccess();
-                Assert.Throws<InvalidOperationException>(() => successful.Unwrap());
-            }
-        }
-
-        /// <summary>
         /// Tests the <see cref="Result.FromSuccess"/> method.
         /// </summary>
         public class FromSuccess

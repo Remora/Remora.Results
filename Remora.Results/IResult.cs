@@ -45,13 +45,5 @@ namespace Remora.Results
         /// Gets the inner result, if any.
         /// </summary>
         IResult? Inner { get; }
-
-        /// <summary>
-        /// Gets the innermost error.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if the result is successful.</exception>
-        /// <returns>The innermost error.</returns>
-        [Obsolete("WrappedError is no longer used. Access Error directly for the most recent error.")]
-        IResultError Unwrap();
     }
 }
