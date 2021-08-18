@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>5.0.0</Version>
+        <Version>5.1.0</Version>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Remove obsolete API.
-            Add a way to override the message in ArgumentNullError and ArgumentOutOfRangeError.
+            Add a generalized error for when something isn't found.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
