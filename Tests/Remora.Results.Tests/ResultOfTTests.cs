@@ -242,16 +242,52 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests the <see cref="Result{T}.op_Implicit(T)"/> operator.
+        /// Tests the <see cref="Result{TEntity}.IsDefined"/> method.
         /// </summary>
-        public class EntityErrorOperator
+        public class IsDefined
         {
             /// <summary>
-            /// Tests whether <see cref="Result{T}.op_Implicit(ResultError)"/> creates a successful result from an
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsFalseForUnsuccessfulResult()
+            {
+                Result<int?> result = new InvalidOperationError();
+                Assert.False(result.IsDefined());
+            }
+
+            /// <summary>
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsFalseForSuccessfulButNullResult()
+            {
+                Result<int?> result = (int?)null;
+                Assert.False(result.IsDefined());
+            }
+
+            /// <summary>
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsTrueForSuccessfulResultWithValue()
+            {
+                Result<int?> result = 1;
+                Assert.True(result.IsDefined());
+            }
+        }
+
+        /// <summary>
+        /// Tests the <see cref="Result{T}.op_Implicit(T)"/> operator.
+        /// </summary>
+        public class EntityOperator
+        {
+            /// <summary>
+            /// Tests whether <see cref="Result{T}.op_Implicit(T)"/> creates a successful result from an
             /// entity.
             /// </summary>
             [Fact]
-            public void CreatesAnUnsuccessfulResultFromAnErrorInstance()
+            public void CreatesAnSuccessfulResultFromAnEntity()
             {
                 Result<int> result = 0;
                 Assert.True(result.IsSuccess);

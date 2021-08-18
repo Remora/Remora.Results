@@ -112,16 +112,12 @@ namespace Remora.Results
         /// <summary>
         /// Gets the entity returned by the result.
         /// </summary>
-        public TEntity? Entity { get; }
+        [AllowNull]
+        public TEntity Entity { get; }
 
-        // Technically, this is a lie, but since the nullability of the type is reliant on the actual generic type and
-        // its annotations, this warning can be disabled.
-        #pragma warning disable CS8775
         /// <inheritdoc />
-        [MemberNotNullWhen(true, nameof(Entity))]
         [MemberNotNullWhen(false, nameof(Error))]
         public bool IsSuccess => this.Error is null;
-        #pragma warning restore CS8775
 
         /// <inheritdoc />
         public IResult? Inner { get; }
@@ -141,6 +137,13 @@ namespace Remora.Results
             this.Inner = inner;
             this.Entity = entity;
         }
+
+        /// <summary>
+        /// Determines whether the result contains a defined value; that is, it has a value, and the value is not null.
+        /// </summary>
+        /// <returns>true if the result contains a defined value; otherwise, false.</returns>
+        [MemberNotNullWhen(true, nameof(Entity))]
+        public bool IsDefined() => this.IsSuccess && this.Entity is not null;
 
         /// <summary>
         /// Creates a new successful result.
@@ -190,7 +193,7 @@ namespace Remora.Results
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns>The successful result.</returns>
-        public static implicit operator Result<TEntity>(TEntity entity)
+        public static implicit operator Result<TEntity>(TEntity? entity)
         {
             return new(entity, default, default);
         }
