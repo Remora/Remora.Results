@@ -153,7 +153,7 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests the <see cref="Result.FromError(IResultError,IResult)"/> method and its overloads.
+        /// Tests the <see cref="Result.FromError{TError}(TError)"/> method and its overloads.
         /// </summary>
         public class FromError
         {

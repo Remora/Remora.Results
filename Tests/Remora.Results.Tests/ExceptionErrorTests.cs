@@ -43,7 +43,7 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests whether the <see cref="ExceptionError.Message"/> is simply forwarded from the exception by default.
+        /// Tests whether the <see cref="ResultError.Message"/> is simply forwarded from the exception by default.
         /// </summary>
         [Fact]
         public void ExceptionErrorForwardsExceptionMessageByDefault()
@@ -55,7 +55,7 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests whether the <see cref="ExceptionError.Message"/> is simply forwarded from the exception by default.
+        /// Tests whether the <see cref="ResultError.Message"/> is simply forwarded from the exception by default.
         /// </summary>
         [Fact]
         public void ExceptionErrorUsesProvidedMessageIfAvailable()

@@ -29,6 +29,7 @@ namespace Remora.Results
     /// Represents an error arising from an argument being outside of an expected range.
     /// </summary>
     /// <param name="Name">The name of the argument.</param>
+    /// <param name="Message">The error message.</param>
     /// <remarks>Used in place of <see cref="ArgumentOutOfRangeException"/>.</remarks>
     public record ArgumentOutOfRangeError
     (
