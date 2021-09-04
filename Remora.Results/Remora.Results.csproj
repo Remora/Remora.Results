@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>6.0.0</Version>
+        <Version>6.1.0</Version>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Correct nullability annotations.
+            Add an aggregate error.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
