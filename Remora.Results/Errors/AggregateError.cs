@@ -33,7 +33,7 @@ namespace Remora.Results
     /// <remarks>Used in place of <see cref="AggregateException"/>.</remarks>
     public record AggregateError
     (
-        IReadOnlyCollection<IResultError> Errors,
+        IReadOnlyCollection<IResult> Errors,
         string Message = "One or more errors occurred."
     ) : ResultError(Message)
     {
@@ -42,7 +42,7 @@ namespace Remora.Results
         /// </summary>
         /// <param name="message">The error message.</param>
         /// <param name="errors">The errors.</param>
-        public AggregateError(string message, params IResultError[] errors)
+        public AggregateError(string message, params IResult[] errors)
             : this(errors, message)
         {
         }
@@ -51,8 +51,8 @@ namespace Remora.Results
         /// Initializes a new instance of the <see cref="AggregateError"/> class.
         /// </summary>
         /// <param name="errors">The errors.</param>
-        public AggregateError(params IResultError[] errors)
-            : this((IReadOnlyCollection<IResultError>)errors)
+        public AggregateError(params IResult[] errors)
+            : this((IReadOnlyCollection<IResult>)errors)
         {
         }
     }
