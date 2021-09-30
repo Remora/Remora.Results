@@ -35,9 +35,8 @@
         <RepositoryUrl>https://github.com/Nihlus/Remora</RepositoryUrl>
         <RepositoryBranch>master</RepositoryBranch>
         <PackageOutputPath>$(SolutionDir)/nuget</PackageOutputPath>
-        <PackageProjectUrl>https://github.com/Nihlus/Remora</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Nihlus/Remora.Results</PackageProjectUrl>
         <PackageTags>remora</PackageTags>
-        <PackageIconUrl>https://cdn.gullberg.tk/remora/icon/shark.png</PackageIconUrl>
         <PackageIcon>shark.png</PackageIcon>
     </PropertyGroup>
 
