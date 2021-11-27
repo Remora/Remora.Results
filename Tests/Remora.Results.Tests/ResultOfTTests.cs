@@ -242,7 +242,7 @@ namespace Remora.Results.Tests
         }
 
         /// <summary>
-        /// Tests the <see cref="Result{TEntity}.IsDefined"/> method.
+        /// Tests the <see cref="Result{TEntity}.IsDefined()"/> method and its overloads.
         /// </summary>
         public class IsDefined
         {
@@ -274,6 +274,39 @@ namespace Remora.Results.Tests
             {
                 Result<int?> result = 1;
                 Assert.True(result.IsDefined());
+            }
+
+            /// <summary>
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsFalseAndNullForUnsuccessfulResult()
+            {
+                Result<int?> result = new InvalidOperationError();
+                Assert.False(result.IsDefined(out var entity));
+                Assert.Null(entity);
+            }
+
+            /// <summary>
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsFalseAndNullForSuccessfulButNullResult()
+            {
+                Result<int?> result = (int?)null;
+                Assert.False(result.IsDefined(out var entity));
+                Assert.Null(entity);
+            }
+
+            /// <summary>
+            /// Tests whether the method returns false for an unsuccessful result.
+            /// </summary>
+            [Fact]
+            public void ReturnsTrueAndNotNullForSuccessfulResultWithValue()
+            {
+                Result<int?> result = 1;
+                Assert.True(result.IsDefined(out var entity));
+                Assert.NotNull(entity);
             }
         }
 
