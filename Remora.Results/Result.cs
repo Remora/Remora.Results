@@ -146,6 +146,30 @@ namespace Remora.Results
         public bool IsDefined() => this.IsSuccess && this.Entity is not null;
 
         /// <summary>
+        /// Determines whether the result contains a defined value; that is, it has a value, and the value is not null.
+        /// </summary>
+        /// <param name="entity">The entity, if it is defined.</param>
+        /// <returns>true if the result contains a defined value; otherwise, false.</returns>
+        [MemberNotNullWhen(true, nameof(Entity))]
+        public bool IsDefined([NotNullWhen(true)] out TEntity? entity)
+        {
+            entity = default;
+
+            if (!this.IsSuccess)
+            {
+                return false;
+            }
+
+            if (this.Entity is null)
+            {
+                return false;
+            }
+
+            entity = this.Entity;
+            return true;
+        }
+
+        /// <summary>
         /// Creates a new successful result.
         /// </summary>
         /// <param name="entity">The returned entity.</param>
