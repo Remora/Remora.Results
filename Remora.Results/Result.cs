@@ -86,7 +86,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result FromError<TEntity>(Result<TEntity> result)
-            => new(default, result);
+            => new(result.Error, result);
 
         /// <summary>
         /// Converts an error into a failed result.
@@ -178,7 +178,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError<TOtherEntity>(Result<TOtherEntity> result)
-            => new(default, default, result);
+            => new(default, result.Error, result);
 
         /// <summary>
         /// Creates a new failed result from another result.
@@ -186,7 +186,7 @@ namespace Remora.Results
         /// <param name="result">The error.</param>
         /// <returns>The failed result.</returns>
         public static Result<TEntity> FromError(Result result)
-            => new(default, default, result);
+            => new(default, result.Error, result);
 
         /// <summary>
         /// Converts an entity into a successful result.
