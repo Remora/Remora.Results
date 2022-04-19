@@ -22,17 +22,16 @@
 
 using JetBrains.Annotations;
 
-namespace Remora.Results
+namespace Remora.Results;
+
+/// <summary>
+/// Represents an error returned by a result.
+/// </summary>
+[PublicAPI]
+public interface IResultError
 {
     /// <summary>
-    /// Represents an error returned by a result.
+    /// Gets the human-readable error message.
     /// </summary>
-    [PublicAPI]
-    public interface IResultError
-    {
-        /// <summary>
-        /// Gets the human-readable error message.
-        /// </summary>
-        string Message { get; }
-    }
+    string Message { get; }
 }

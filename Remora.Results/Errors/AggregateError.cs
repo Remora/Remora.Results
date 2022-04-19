@@ -23,37 +23,36 @@
 using System;
 using System.Collections.Generic;
 
-namespace Remora.Results
+namespace Remora.Results;
+
+/// <summary>
+/// Represents a set of errors produced by an operation.
+/// </summary>
+/// <param name="Errors">The errors.</param>
+/// <param name="Message">The custom error message, if any.</param>
+/// <remarks>Used in place of <see cref="AggregateException"/>.</remarks>
+public record AggregateError
+(
+    IReadOnlyCollection<IResult> Errors,
+    string Message = "One or more errors occurred."
+) : ResultError(Message)
 {
     /// <summary>
-    /// Represents a set of errors produced by an operation.
+    /// Initializes a new instance of the <see cref="AggregateError"/> class.
     /// </summary>
-    /// <param name="Errors">The errors.</param>
-    /// <param name="Message">The custom error message, if any.</param>
-    /// <remarks>Used in place of <see cref="AggregateException"/>.</remarks>
-    public record AggregateError
-    (
-        IReadOnlyCollection<IResult> Errors,
-        string Message = "One or more errors occurred."
-    ) : ResultError(Message)
+    /// <param name="message">The error message.</param>
+    /// <param name="errors">The errors.</param>
+    public AggregateError(string message, params IResult[] errors)
+        : this(errors, message)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateError"/> class.
-        /// </summary>
-        /// <param name="message">The error message.</param>
-        /// <param name="errors">The errors.</param>
-        public AggregateError(string message, params IResult[] errors)
-            : this(errors, message)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateError"/> class.
-        /// </summary>
-        /// <param name="errors">The errors.</param>
-        public AggregateError(params IResult[] errors)
-            : this((IReadOnlyCollection<IResult>)errors)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AggregateError"/> class.
+    /// </summary>
+    /// <param name="errors">The errors.</param>
+    public AggregateError(params IResult[] errors)
+        : this((IReadOnlyCollection<IResult>)errors)
+    {
     }
 }

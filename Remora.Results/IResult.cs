@@ -22,27 +22,26 @@
 
 using JetBrains.Annotations;
 
-namespace Remora.Results
+namespace Remora.Results;
+
+/// <summary>
+/// Represents the public API of an interface.
+/// </summary>
+[PublicAPI]
+public interface IResult
 {
     /// <summary>
-    /// Represents the public API of an interface.
+    /// Gets a value indicating whether the result was successful.
     /// </summary>
-    [PublicAPI]
-    public interface IResult
-    {
-        /// <summary>
-        /// Gets a value indicating whether the result was successful.
-        /// </summary>
-        bool IsSuccess { get; }
+    bool IsSuccess { get; }
 
-        /// <summary>
-        /// Gets the error, if any.
-        /// </summary>
-        IResultError? Error { get; }
+    /// <summary>
+    /// Gets the error, if any.
+    /// </summary>
+    IResultError? Error { get; }
 
-        /// <summary>
-        /// Gets the inner result, if any.
-        /// </summary>
-        IResult? Inner { get; }
-    }
+    /// <summary>
+    /// Gets the inner result, if any.
+    /// </summary>
+    IResult? Inner { get; }
 }

@@ -23,12 +23,11 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Remora.Results
-{
-    /// <summary>
-    /// Represents a simple generic human-readable error message.
-    /// </summary>
-    [PublicAPI]
-    [Obsolete("Prefer using a more specific error type.")]
-    public sealed record GenericError(string Message) : ResultError(Message);
-}
+namespace Remora.Results;
+
+/// <summary>
+/// Represents a simple generic human-readable error message.
+/// </summary>
+[PublicAPI]
+[Obsolete("Prefer using a more specific error type.")]
+public sealed record GenericError(string Message) : ResultError(Message);

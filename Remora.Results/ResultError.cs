@@ -22,10 +22,9 @@
 
 #pragma warning disable CS1591
 
-namespace Remora.Results
-{
-    /// <summary>
-    /// Acts as a base class for result errors.
-    /// </summary>
-    public abstract record ResultError(string Message) : IResultError;
-}
+namespace Remora.Results;
+
+/// <summary>
+/// Acts as a base class for result errors.
+/// </summary>
+public abstract record ResultError(string Message) : IResultError;
