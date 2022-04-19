@@ -38,6 +38,7 @@
         <PackageProjectUrl>https://github.com/Nihlus/Remora.Results</PackageProjectUrl>
         <PackageTags>remora</PackageTags>
         <PackageIcon>shark.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <!-- Code inspection properties -->
