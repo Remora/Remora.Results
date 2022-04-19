@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>7.1.1</Version>
+        <Version>7.1.2</Version>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Upgrade nuget packages.
+            Mark some more types with PublicAPI.
+            Use file-scoped namespaces.
+            Update packaging configuration and nuget packages.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
