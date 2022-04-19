@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Remora.Results;
 
@@ -31,6 +32,7 @@ namespace Remora.Results;
 /// <param name="Errors">The errors.</param>
 /// <param name="Message">The custom error message, if any.</param>
 /// <remarks>Used in place of <see cref="AggregateException"/>.</remarks>
+[PublicAPI]
 public record AggregateError
 (
     IReadOnlyCollection<IResult> Errors,

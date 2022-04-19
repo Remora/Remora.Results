@@ -20,10 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using JetBrains.Annotations;
+
 namespace Remora.Results;
 
 /// <summary>
 /// Represents a failure to find something that was searched for.
 /// </summary>
 /// <param name="Message">The custom message to provide.</param>
+[PublicAPI]
 public record NotFoundError(string Message = "The searched-for entity was not found.") : ResultError(Message);
