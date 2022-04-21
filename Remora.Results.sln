@@ -20,6 +20,10 @@ ProjectSection(SolutionItems) = preProject
 	Tests\Directory.Build.props = Tests\Directory.Build.props
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results.Analyzers", "Remora.Results.Analyzers\Remora.Results.Analyzers.csproj", "{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results.Analyzers.Tests", "Tests\Remora.Results.Analyzers.Tests\Remora.Results.Analyzers.Tests.csproj", "{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,8 +38,17 @@ Global
 		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C4B205-5F47-48FA-8E1E-D0E844B9D258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{62C4B205-5F47-48FA-8E1E-D0E844B9D258} = {30449774-E764-4161-89E6-2204B87338FC}
+		{C80DE1D4-32FF-4F75-8ED9-AA314B535EA0} = {30449774-E764-4161-89E6-2204B87338FC}
 	EndGlobalSection
 EndGlobal
