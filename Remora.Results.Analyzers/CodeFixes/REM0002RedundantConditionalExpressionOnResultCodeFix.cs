@@ -27,14 +27,13 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Remora.Results.Analyzers.CodeFixes;
 
 /// <summary>
 /// Provides a code fix for instances of REM0002.
 /// </summary>
-[DiagnosticAnalyzer(LanguageNames.CSharp), Shared]
+[ExportCodeFixProvider(LanguageNames.CSharp), Shared]
 public class REM0002RedundantConditionalExpressionOnResultCodeFix : CodeFixProvider
 {
     /// <inheritdoc />
