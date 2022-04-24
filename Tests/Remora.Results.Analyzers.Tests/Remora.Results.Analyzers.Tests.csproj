@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Remora.Results.Analyzers\Remora.Results.Analyzers.csproj" />
+        <ProjectReference Include="..\..\Remora.Results\Remora.Results.csproj" />
     </ItemGroup>
 
     <ItemGroup>

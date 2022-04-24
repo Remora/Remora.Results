@@ -50,14 +50,13 @@ public class REM0001RedundantFromErrorCallAnalyzer : DiagnosticAnalyzer
         context.RegisterSyntaxNodeAction(action: AnalyzeInvocation, SyntaxKind.InvocationExpression);
     }
 
-    private void AnalyzeInvocation(SyntaxNodeAnalysisContext syntaxNodeAnalysisContext)
+    private void AnalyzeInvocation(SyntaxNodeAnalysisContext context)
     {
-        if (!syntaxNodeAnalysisContext.Node.IsKind(SyntaxKind.InvocationExpression))
+        if (context.Node is not InvocationExpressionSyntax invocation || !context.Node.IsKind(SyntaxKind.InvocationExpression))
         {
             return;
         }
 
-        var invocation = (InvocationExpressionSyntax)syntaxNodeAnalysisContext.Node;
         if (invocation.Expression is not MemberAccessExpressionSyntax memberAccess)
         {
             return;
@@ -103,8 +102,8 @@ public class REM0001RedundantFromErrorCallAnalyzer : DiagnosticAnalyzer
         }
 
         // Suspicious! Let's compare types...
-        var argumentTypeInfo = syntaxNodeAnalysisContext.SemanticModel.GetTypeInfo(argumentMemberAccessName);
-        var expressionTypeInfo = syntaxNodeAnalysisContext.SemanticModel.GetTypeInfo(memberAccessName);
+        var argumentTypeInfo = context.SemanticModel.GetTypeInfo(argumentMemberAccessName);
+        var expressionTypeInfo = context.SemanticModel.GetTypeInfo(memberAccessName);
 
         if (!argumentTypeInfo.Equals(expressionTypeInfo))
         {
@@ -112,7 +111,7 @@ public class REM0001RedundantFromErrorCallAnalyzer : DiagnosticAnalyzer
         }
 
         // Bad!
-        syntaxNodeAnalysisContext.ReportDiagnostic
+        context.ReportDiagnostic
         (
             Diagnostic.Create
             (

@@ -21,9 +21,8 @@
 //
 
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Testing;
-using Microsoft.CodeAnalysis.Testing.Verifiers;
+using Remora.Results.Analyzers.Tests.TestBases;
 using Xunit;
 
 namespace Remora.Results.Analyzers.Tests;
@@ -31,8 +30,62 @@ namespace Remora.Results.Analyzers.Tests;
 /// <summary>
 /// Tests the <see cref="REM0001RedundantFromErrorCallAnalyzer"/> analyzer.
 /// </summary>
-public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001RedundantFromErrorCallAnalyzer, XUnitVerifier>
+public class RedundantFromErrorCallAnalyzerTests : ResultAnalyzerTests<REM0001RedundantFromErrorCallAnalyzer>
 {
+    /// <summary>
+    /// Tests that the analyzer ignores code where nothing that looks like a FromError call exists.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+    [Fact]
+    public async Task RaisesWarningForRedundantCode()
+    {
+        this.TestCode =
+        @"
+            using Remora.Results;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Result b = default;
+                    Result.FromError(b.Error);
+                }
+            }
+        ";
+
+        this.ExpectedDiagnostics.Clear();
+        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerWarning("REM0001").WithSpan(9, 21, 9, 46).WithArguments("b"));
+
+        await RunAsync();
+    }
+
+    /// <summary>
+    /// Tests that the analyzer ignores code where nothing that looks like a FromError call exists.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+    [Fact]
+    public async Task RaisesWarningForGenericRedundantCode()
+    {
+        this.TestCode =
+        @"
+            using Remora.Results;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Result<int> b = default;
+                    Result<int>.FromError(b.Error);
+                }
+            }
+        ";
+
+        this.ExpectedDiagnostics.Clear();
+        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerWarning("REM0001").WithSpan(9, 21, 9, 51).WithArguments("b"));
+
+        await RunAsync();
+    }
+
     /// <summary>
     /// Tests that the analyzer ignores code where nothing that looks like a FromError call exists.
     /// </summary>
@@ -67,6 +120,8 @@ public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001Red
     {
         this.TestCode =
         @"
+            using Remora.Results;
+
             public class Program
             {
                 public static void Main()
@@ -79,8 +134,7 @@ public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001Red
         ";
 
         this.ExpectedDiagnostics.Clear();
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0246").WithLocation(6, 21));
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0246").WithLocation(7, 21));
+        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0176").WithLocation(10, 21));
 
         await RunAsync();
     }
@@ -94,6 +148,8 @@ public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001Red
     {
         this.TestCode =
         @"
+            using Remora.Results;
+
             public class Program
             {
                 public static void Main()
@@ -105,64 +161,7 @@ public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001Red
         ";
 
         this.ExpectedDiagnostics.Clear();
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0246").WithLocation(6, 21));
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0103").WithLocation(7, 21));
-
-        await RunAsync();
-    }
-
-    /// <summary>
-    /// Tests that the analyzer ignores code where nothing that looks like a FromError call exists.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-    [Fact]
-    public async Task RaisesWarningForRedundantCode()
-    {
-        this.TestCode =
-        @"
-            struct Result { public static void FromError(object obj) { } public object Error; }
-
-            public class Program
-            {
-                public static void Main()
-                {
-                    Result b;
-                    Result.FromError(b.Error);
-                }
-            }
-        ";
-
-        this.ExpectedDiagnostics.Clear();
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerWarning("REM0001").WithSpan(9, 21, 9, 46).WithArguments("b"));
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0170").WithLocation(9, 38));
-
-        await RunAsync();
-    }
-
-    /// <summary>
-    /// Tests that the analyzer ignores code where nothing that looks like a FromError call exists.
-    /// </summary>
-    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-    [Fact]
-    public async Task RaisesWarningForGenericRedundantCode()
-    {
-        this.TestCode =
-        @"
-            struct Result<T> { public static void FromError(object obj) { } public object Error; }
-
-            public class Program
-            {
-                public static void Main()
-                {
-                    Result<int> b;
-                    Result<int>.FromError(b.Error);
-                }
-            }
-        ";
-
-        this.ExpectedDiagnostics.Clear();
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerWarning("REM0001").WithSpan(9, 21, 9, 51).WithArguments("b"));
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0170").WithLocation(9, 43));
+        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0117").WithLocation(9, 28));
 
         await RunAsync();
     }
@@ -176,20 +175,19 @@ public class RedundantFromErrorCallAnalyzerTests : CSharpAnalyzerTest<REM0001Red
     {
         this.TestCode =
         @"
-            struct Result<T> { public static void FromError(object obj) { } public object Error; }
+            using Remora.Results;
 
             public class Program
             {
                 public static void Main()
                 {
-                    Result<int> b;
+                    Result<int> b = default;
                     Result<string>.FromError(b.Error);
                 }
             }
         ";
 
         this.ExpectedDiagnostics.Clear();
-        this.ExpectedDiagnostics.Add(DiagnosticResult.CompilerError("CS0170").WithLocation(9, 46));
 
         await RunAsync();
     }

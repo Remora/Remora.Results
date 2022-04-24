@@ -41,4 +41,17 @@ internal static class Descriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true
     );
+
+    /// <summary>
+    /// Holds the descriptor for redundant ternary expressions.
+    /// </summary>
+    internal static readonly DiagnosticDescriptor REM0002RedundantConditionalExpressionOnResult = new
+    (
+        id: "REM0002",
+        title: "Redundant ternary expression on result",
+        messageFormat: "Use \"{0}\" directly, instead of creating results via a ternary expression",
+        category: DiagnosticCategories.Redundancies,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true
+    );
 }
