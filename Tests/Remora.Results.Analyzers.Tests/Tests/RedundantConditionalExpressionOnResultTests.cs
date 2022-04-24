@@ -116,4 +116,93 @@ public class RedundantConditionalExpressionOnResultTests : ResultAnalyzerTests<R
 
         await RunAsync();
     }
+
+    /// <summary>
+    /// Tests that the analyzer does not flag sad-path code.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+    [Fact]
+    public async Task IgnoresCodeWithMoreComplexCondition()
+    {
+        this.TestCode =
+        @"
+            using Remora.Results;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Result a = default;
+                    Result b = default;
+
+                    var result = a.IsSuccess || b.IsSuccess
+                        ? Result.FromSuccess()
+                        : b;
+                }
+            }
+        ";
+
+        this.ExpectedDiagnostics.Clear();
+
+        await RunAsync();
+    }
+
+    /// <summary>
+    /// Tests that the analyzer does not flag sad-path code.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+    [Fact]
+    public async Task IgnoresCodeWithNonResultErrorArm()
+    {
+        this.TestCode =
+        @"
+            using Remora.Results;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Result b = default;
+
+                    var result = b.IsSuccess
+                        ? Result.FromSuccess()
+                        : new InvalidOperationError();
+                }
+            }
+        ";
+
+        this.ExpectedDiagnostics.Clear();
+
+        await RunAsync();
+    }
+
+    /// <summary>
+    /// Tests that the analyzer does not flag sad-path code.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+    [Fact]
+    public async Task IgnoresCodeWithDifferentResultInErrorArm()
+    {
+        this.TestCode =
+        @"
+            using Remora.Results;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    Result a = default;
+                    Result b = default;
+
+                    var result = a.IsSuccess
+                        ? Result.FromSuccess()
+                        : b;
+                }
+            }
+        ";
+
+        this.ExpectedDiagnostics.Clear();
+
+        await RunAsync();
+    }
 }
