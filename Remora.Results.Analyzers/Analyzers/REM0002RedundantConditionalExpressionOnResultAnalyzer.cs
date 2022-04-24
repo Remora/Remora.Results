@@ -1,5 +1,5 @@
 //
-//  REM0002RedundantConditionalExpressionOnResult.cs
+//  REM0002RedundantConditionalExpressionOnResultAnalyzer.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -32,7 +32,7 @@ namespace Remora.Results.Analyzers;
 /// Detects and flags redundant ternary expressions on results.
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
-public class REM0002RedundantConditionalExpressionOnResult : DiagnosticAnalyzer
+public class REM0002RedundantConditionalExpressionOnResultAnalyzer : DiagnosticAnalyzer
 {
     /// <inheritdoc />
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

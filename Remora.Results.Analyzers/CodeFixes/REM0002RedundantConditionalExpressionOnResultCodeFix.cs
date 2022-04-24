@@ -1,5 +1,5 @@
 //
-//  REM0001RedundantFromErrorCallCodeFix.cs
+//  REM0002RedundantConditionalExpressionOnResultCodeFix.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -21,23 +21,24 @@
 //
 
 using System.Collections.Immutable;
-using System.Composition;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Remora.Results.Analyzers.CodeFixes;
 
 /// <summary>
-/// Provides a code fix for instances of REM0001.
+/// Provides a code fix for instances of REM0002.
 /// </summary>
-[ExportCodeFixProvider(LanguageNames.CSharp), Shared]
-public class REM0001RedundantFromErrorCallCodeFix : CodeFixProvider
+[DiagnosticAnalyzer(LanguageNames.CSharp)]
+public class REM0002RedundantConditionalExpressionOnResultCodeFix : CodeFixProvider
 {
     /// <inheritdoc />
     public override ImmutableArray<string> FixableDiagnosticIds { get; } =
-        ImmutableArray.Create(Descriptors.REM0001RedundantFromErrorCall.Id);
+        ImmutableArray.Create(Descriptors.REM0002RedundantConditionalExpressionOnResult.Id);
 
     /// <inheritdoc />
     public override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -50,22 +51,42 @@ public class REM0001RedundantFromErrorCallCodeFix : CodeFixProvider
 
         var node = root.FindNode(context.Span);
 
-        if (node is not InvocationExpressionSyntax invocation)
+        if (node is not ConditionalExpressionSyntax conditional)
         {
             return;
         }
 
-        if (invocation.ArgumentList.Arguments[0].Expression is not MemberAccessExpressionSyntax argumentMemberAccess)
+        var isFirstArmTheSuccessCase = true;
+        switch (conditional.Condition)
+        {
+            case PrefixUnaryExpressionSyntax prefixExpression
+                when prefixExpression.IsKind(SyntaxKind.LogicalNotExpression):
+            {
+                if (prefixExpression.Operand is not MemberAccessExpressionSyntax)
+                {
+                    return;
+                }
+
+                isFirstArmTheSuccessCase = false;
+                break;
+            }
+            case MemberAccessExpressionSyntax:
+            {
+                break;
+            }
+            default:
+            {
+                return;
+            }
+        }
+
+        var replacementNode = isFirstArmTheSuccessCase ? conditional.WhenFalse : conditional.WhenTrue;
+        if (replacementNode is not SimpleNameSyntax errorResultSyntax)
         {
             return;
         }
 
-        if (argumentMemberAccess.Expression is not SimpleNameSyntax argumentMemberAccessName)
-        {
-            return;
-        }
-
-        var fixTitle = $"Replace FromError call with \"{argumentMemberAccessName.Identifier.Text}\"";
+        var fixTitle = $"Replace conditional with \"{errorResultSyntax.Identifier.Text}\"";
         context.RegisterCodeFix
         (
             CodeAction.Create
@@ -73,7 +94,7 @@ public class REM0001RedundantFromErrorCallCodeFix : CodeFixProvider
                 title: fixTitle,
                 createChangedDocument: _ =>
                 {
-                    var newRoot = root.ReplaceNode(node, argumentMemberAccessName.WithTriviaFrom(node));
+                    var newRoot = root.ReplaceNode(node, replacementNode.WithTriviaFrom(node));
                     return Task.FromResult(context.Document.WithSyntaxRoot(newRoot));
                 },
                 equivalenceKey: fixTitle

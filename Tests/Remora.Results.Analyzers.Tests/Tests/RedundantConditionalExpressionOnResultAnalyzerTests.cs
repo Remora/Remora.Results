@@ -1,5 +1,5 @@
 //
-//  RedundantConditionalExpressionOnResultTests.cs
+//  RedundantConditionalExpressionOnResultAnalyzerTests.cs
 //
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
@@ -28,9 +28,9 @@ using Xunit;
 namespace Remora.Results.Analyzers.Tests;
 
 /// <summary>
-/// Tests the <see cref="REM0002RedundantConditionalExpressionOnResult"/> analyzer.
+/// Tests the <see cref="REM0002RedundantConditionalExpressionOnResultAnalyzer"/> analyzer.
 /// </summary>
-public class RedundantConditionalExpressionOnResultTests : ResultAnalyzerTests<REM0002RedundantConditionalExpressionOnResult>
+public class RedundantConditionalExpressionOnResultAnalyzerTests : ResultAnalyzerTests<REM0002RedundantConditionalExpressionOnResultAnalyzer>
 {
     /// <summary>
     /// Tests that the analyzer flags happy-path code.
