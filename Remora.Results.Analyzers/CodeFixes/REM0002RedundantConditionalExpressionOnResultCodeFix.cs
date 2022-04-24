@@ -33,7 +33,7 @@ namespace Remora.Results.Analyzers.CodeFixes;
 /// <summary>
 /// Provides a code fix for instances of REM0002.
 /// </summary>
-[DiagnosticAnalyzer(LanguageNames.CSharp)]
+[DiagnosticAnalyzer(LanguageNames.CSharp), Shared]
 public class REM0002RedundantConditionalExpressionOnResultCodeFix : CodeFixProvider
 {
     /// <inheritdoc />
