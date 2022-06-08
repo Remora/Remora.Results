@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace Remora.Results;
@@ -33,6 +34,7 @@ public interface IResult
     /// <summary>
     /// Gets a value indicating whether the result was successful.
     /// </summary>
+    [MemberNotNullWhen(false, nameof(Error))]
     bool IsSuccess { get; }
 
     /// <summary>
