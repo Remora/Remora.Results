@@ -213,6 +213,17 @@ public readonly struct Result<TEntity> : IResult
         => new(default, result.Error, result);
 
     /// <summary>
+    /// Explicitly converts a value result into a plain result.
+    /// </summary>
+    /// <remarks>This operator discards any contained entity.</remarks>
+    /// <param name="result">The value result.</param>
+    /// <returns>The plain result.</returns>
+    public static explicit operator Result(Result<TEntity> result)
+    {
+        return result.IsSuccess ? Result.FromSuccess() : Result.FromError(result.Error);
+    }
+
+    /// <summary>
     /// Converts an entity into a successful result.
     /// </summary>
     /// <param name="entity">The entity.</param>

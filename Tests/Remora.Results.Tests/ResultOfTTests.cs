@@ -311,6 +311,36 @@ public static class ResultOfTTests
     }
 
     /// <summary>
+    /// Tests the <see cref="Result{T}.op_Explicit(Result{T})"/> operator.
+    /// </summary>
+    public class ResultOperator
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.op_Explicit(Result{T})"/> creates a successful result from a successful
+        /// value result.
+        /// </summary>
+        [Fact]
+        public void CreatesASuccessfulResultFromASuccessfulValueResult()
+        {
+            Result<int> result = 0;
+            var converted = (Result)result;
+            Assert.True(converted.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.op_Explicit(Result{T})"/> creates an unsuccessful result from an
+        /// unsuccessful value result.
+        /// </summary>
+        [Fact]
+        public void CreatesAnUnsuccessfulResultFromAnUnsuccessfulValueResult()
+        {
+            Result<int> result = new InvalidOperationError();
+            var converted = (Result)result;
+            Assert.False(converted.IsSuccess);
+        }
+    }
+
+    /// <summary>
     /// Tests the <see cref="Result{T}.op_Implicit(T)"/> operator.
     /// </summary>
     public class EntityOperator
@@ -320,7 +350,7 @@ public static class ResultOfTTests
         /// entity.
         /// </summary>
         [Fact]
-        public void CreatesAnSuccessfulResultFromAnEntity()
+        public void CreatesASuccessfulResultFromAnEntity()
         {
             Result<int> result = 0;
             Assert.True(result.IsSuccess);
