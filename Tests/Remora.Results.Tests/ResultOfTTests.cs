@@ -165,6 +165,213 @@ public static class ResultOfTTests
     }
 
     /// <summary>
+    /// Tests the <see cref="Result{T}.Map{TOut}"/> method.
+    /// </summary>
+    public class Map
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void CanMap()
+        {
+            Result<Derived> some = new Derived();
+
+            var mapped = some.Map(x => (Base)x);
+
+            Assert.IsType<Result<Base>>(mapped);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns an unsuccessful result if the original result is unsuccessful.
+        /// </summary>
+        [Fact]
+        public void ReturnsUnsuccessfulIfOriginalIsUnsuccessful()
+        {
+            Result<Base> some = new InvalidOperationError();
+
+            var mapped = some.Map(x => (Derived)x);
+
+            Assert.False(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method preserves the inner result if the original result has one.
+        /// </summary>
+        [Fact]
+        public void PreservesInnerResult()
+        {
+            Result inner = new NotFoundError();
+            Result<Base> some = Result<Base>.FromError(new InvalidOperationError(), inner);
+
+            var mapped = some.Map(x => (Derived)x);
+
+            Assert.False(mapped.IsSuccess);
+            Assert.Equal(mapped.Inner, inner);
+        }
+
+        private class Base
+        {
+        }
+
+        private class Derived : Base
+        {
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result{T}.MapOr{TOut}"/> method.
+    /// </summary>
+    public class MapOr
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void CanMap()
+        {
+            Result<Derived> some = new Derived();
+
+            var mapped = some.MapOr(x => x, new Base());
+
+            Assert.NotNull(mapped);
+            Assert.Same(some.Entity, mapped);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns an unsuccessful result if the original result is unsuccessful.
+        /// </summary>
+        [Fact]
+        public void ReturnsDefaultIfOriginalIsUnsuccessful()
+        {
+            Result<Base> some = new InvalidOperationError();
+
+            var mapped = some.MapOr(x => x, new Base());
+
+            Assert.NotNull(mapped);
+            Assert.NotSame(some.Entity, mapped);
+        }
+
+        private class Base
+        {
+        }
+
+        private class Derived : Base
+        {
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result.MapOrElse{TOut}"/> method.
+    /// </summary>
+    public class MapOrElse
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void ReturnsConversionIfSuccessful()
+        {
+            Result<int> some = 1;
+
+            var mapped = some.MapOrElse(_ => "success", (_, _) => "fail");
+
+            Assert.Equal("success", mapped);
+        }
+
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void ReturnsFallbackIfUnsuccessful()
+        {
+            Result<int> err = new InvalidOperationError();
+
+            var mapped = err.MapOrElse(_ => "success", (_, _) => "fail");
+
+            Assert.Equal("fail", mapped);
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result{T}.MapError{TError}(Func{IResultError, IResult?, TError})"/> method and its overloads.
+    /// </summary>
+    public class MapError
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void CanMapError()
+        {
+            Result<int> err = new InvalidOperationError();
+
+            var mapped = err.MapError((_, _) => new NotFoundError());
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+        }
+
+        /// <summary>
+        /// Tests whether the method can perform a mapping and overwrite the inner error.
+        /// </summary>
+        [Fact]
+        public void CanMapErrorWithNewInner()
+        {
+            Result<int> err = new InvalidOperationError();
+
+            var mapped = err.MapError((_, _) => (new NotFoundError(), Result.FromError(new InvalidOperationError())));
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+            Assert.NotNull(mapped.Inner);
+            Assert.IsType<InvalidOperationError>(mapped.Inner!.Error);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns a successful result if the original result is successful.
+        /// </summary>
+        [Fact]
+        public void ReturnsSuccessfulIfOriginalIsSuccessful()
+        {
+            Result<int> some = 1;
+
+            var mapped = some.MapError((_, _) => new NotFoundError());
+
+            Assert.True(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns a successful result if the original result is successful.
+        /// </summary>
+        [Fact]
+        public void ReturnsSuccessfulIfOriginalIsSuccessfulWithNewInner()
+        {
+            Result<int> some = 1;
+
+            var mapped = some.MapError((_, _) => (new NotFoundError(), Result.FromError(new InvalidOperationError())));
+
+            Assert.True(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method preserves the inner result if the original result has one.
+        /// </summary>
+        [Fact]
+        public void PreservesInnerResult()
+        {
+            Result inner = new NotFoundError();
+            var err = Result<int>.FromError(new InvalidOperationError(), inner);
+
+            var mapped = err.MapError((_, _) => new NotFoundError());
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+            Assert.Equal(mapped.Inner, inner);
+        }
+    }
+
+    /// <summary>
     /// Tests the <see cref="Result{T}.FromSuccess"/> method.
     /// </summary>
     public class FromSuccess

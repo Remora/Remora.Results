@@ -54,6 +54,66 @@ public readonly struct Result : IResult
     }
 
     /// <summary>
+    /// Maps the result to a value result using the provided value. Any error information will be passed through
+    /// unaltered.
+    /// </summary>
+    /// <typeparam name="TOut">The output entity type.</typeparam>
+    /// <param name="value">The value to use if the result is successful.</param>
+    /// <returns>The mapped result.</returns>
+    public Result<TOut> Map<TOut>(TOut value)
+    {
+        return this.IsSuccess
+            ? value
+            : Result<TOut>.FromError(this.Error, this.Inner);
+    }
+
+    /// <summary>
+    /// Creates a fallback value if the result is unsuccessful or returns the user-provided default value.
+    /// </summary>
+    /// <param name="value">The value to use if the result is successful.</param>
+    /// <param name="fallback">The function to use if the result is unsuccessful.</param>
+    /// <typeparam name="TOut">The output entity type.</typeparam>
+    /// <returns>The mapped result.</returns>
+    public TOut MapOrElse<TOut>(TOut value, Func<IResultError, IResult?, TOut> fallback)
+    {
+        return this.IsSuccess
+            ? value
+            : fallback(this.Error, this.Inner);
+    }
+
+    /// <summary>
+    /// Maps the result from one error type to another using a user-provided conversion.
+    /// </summary>
+    /// <typeparam name="TError">The new error type.</typeparam>
+    /// <param name="conversion">The conversion function.</param>
+    /// <returns>The mapped result.</returns>
+    public Result MapError<TError>(Func<IResultError, IResult?, TError> conversion)
+        where TError : IResultError
+    {
+        return this.IsSuccess
+            ? this
+            : new(conversion(this.Error, this.Inner), this.Inner);
+    }
+
+    /// <summary>
+    /// Maps the result from one error type to another using a user-provided conversion.
+    /// </summary>
+    /// <typeparam name="TError">The new error type.</typeparam>
+    /// <param name="conversion">The conversion function.</param>
+    /// <returns>The mapped result.</returns>
+    public Result MapError<TError>(Func<IResultError, IResult?, (TError Error, IResult? Inner)> conversion)
+        where TError : IResultError
+    {
+        if (this.IsSuccess)
+        {
+            return this;
+        }
+
+        var (error, inner) = conversion(this.Error, this.Inner);
+        return new(error, inner);
+    }
+
+    /// <summary>
     /// Creates a new successful result.
     /// </summary>
     /// <returns>The successful result.</returns>
@@ -76,7 +136,7 @@ public readonly struct Result : IResult
     /// <param name="error">The error.</param>
     /// <param name="inner">The inner error that caused this error, if any.</param>
     /// <returns>The failed result.</returns>
-    public static Result FromError<TError>(TError error, IResult inner) where TError : IResultError
+    public static Result FromError<TError>(TError error, IResult? inner) where TError : IResultError
         => new(error, inner);
 
     /// <summary>
@@ -170,6 +230,83 @@ public readonly struct Result<TEntity> : IResult
     }
 
     /// <summary>
+    /// Maps the result from one entity type to another using a user-provided conversion.
+    /// </summary>
+    /// <param name="conversion">The conversion function.</param>
+    /// <typeparam name="TOut">The output entity type.</typeparam>
+    /// <returns>The mapped result.</returns>
+    public Result<TOut> Map<TOut>(Func<TEntity, TOut> conversion)
+    {
+        return this.IsSuccess
+            ? new Result<TOut>(conversion(this.Entity), default, default)
+            : new Result<TOut>(default, this.Error, this.Inner);
+    }
+
+    /// <summary>
+    /// Returns the provided default if the result is unsuccessful or applies a user-provided conversion if the result
+    /// contains an entity.
+    /// </summary>
+    /// <param name="conversion">The conversion function.</param>
+    /// <param name="defaultValue">The default value.</param>
+    /// <typeparam name="TOut">The output entity type.</typeparam>
+    /// <returns>The mapped result.</returns>
+    public TOut MapOr<TOut>(Func<TEntity, TOut> conversion, TOut defaultValue)
+        => MapOrElse(conversion, (_, _) => defaultValue);
+
+    /// <summary>
+    /// Creates a fallback value if the result is unsuccessful or applies a user-provided conversion if the result
+    /// contains an entity.
+    /// </summary>
+    /// <param name="conversion">The function to use if the result is successful.</param>
+    /// <param name="fallback">The function to use if the result is unsuccessful.</param>
+    /// <typeparam name="TOut">The output entity type.</typeparam>
+    /// <returns>The mapped result.</returns>
+    public TOut MapOrElse<TOut>(Func<TEntity, TOut> conversion, Func<IResultError, IResult?, TOut> fallback)
+    {
+        return this.IsSuccess
+            ? conversion(this.Entity)
+            : fallback(this.Error, this.Inner);
+    }
+
+    /// <summary>
+    /// Maps the result from one error type to another using a user-provided conversion.
+    /// </summary>
+    /// <remarks>
+    /// The user-provided conversion is only called if the result is unsuccessful.
+    /// </remarks>
+    /// <typeparam name="TError">The new error type.</typeparam>
+    /// <param name="conversion">The conversion function.</param>
+    /// <returns>The mapped result.</returns>
+    public Result<TEntity> MapError<TError>(Func<IResultError, IResult?, TError> conversion)
+        where TError : IResultError
+    {
+        return this.IsSuccess
+            ? this
+            : new Result<TEntity>(default, conversion(this.Error, this.Inner), this.Inner);
+    }
+
+    /// <summary>
+    /// Maps the result from one error type to another using a user-provided conversion.
+    /// </summary>
+    /// <remarks>
+    /// The user-provided conversion is only called if the result is unsuccessful.
+    /// </remarks>
+    /// <typeparam name="TError">The new error type.</typeparam>
+    /// <param name="conversion">The conversion function.</param>
+    /// <returns>The mapped result.</returns>
+    public Result<TEntity> MapError<TError>(Func<IResultError, IResult?, (TError Error, IResult? Inner)> conversion)
+        where TError : IResultError
+    {
+        if (this.IsSuccess)
+        {
+            return this;
+        }
+
+        var (error, inner) = conversion(this.Error, this.Inner);
+        return new Result<TEntity>(default, error, inner);
+    }
+
+    /// <summary>
     /// Creates a new successful result.
     /// </summary>
     /// <param name="entity">The returned entity.</param>
@@ -192,7 +329,7 @@ public readonly struct Result<TEntity> : IResult
     /// <param name="error">The error.</param>
     /// <param name="inner">The inner error that caused this error, if any.</param>
     /// <returns>The failed result.</returns>
-    public static Result<TEntity> FromError<TError>(TError error, IResult inner) where TError : IResultError
+    public static Result<TEntity> FromError<TError>(TError error, IResult? inner) where TError : IResultError
         => new(default, error, inner);
 
     /// <summary>

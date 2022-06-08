@@ -137,6 +137,163 @@ public static class ResultTests
     }
 
     /// <summary>
+    /// Tests the <see cref="Result.Map{TOut}"/> method.
+    /// </summary>
+    public class Map
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void CanMap()
+        {
+            var some = Result.FromSuccess();
+
+            var mapped = some.Map(1);
+
+            Assert.True(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns an unsuccessful result if the original result is unsuccessful.
+        /// </summary>
+        [Fact]
+        public void ReturnsUnsuccessfulIfOriginalIsUnsuccessful()
+        {
+            Result err = new InvalidOperationError();
+
+            var mapped = err.Map(1);
+
+            Assert.False(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method preserves the inner result if the original result has one.
+        /// </summary>
+        [Fact]
+        public void PreservesInnerResult()
+        {
+            Result inner = new NotFoundError();
+            var err = Result.FromError(new InvalidOperationError(), inner);
+
+            var mapped = err.Map(1);
+
+            Assert.False(mapped.IsSuccess);
+            Assert.Equal(mapped.Inner, inner);
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result.MapOrElse{TOut}"/> method.
+    /// </summary>
+    public class MapOrElse
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void ReturnsValueIfSuccessful()
+        {
+            var some = Result.FromSuccess();
+
+            var mapped = some.MapOrElse(2, (_, _) => 1);
+
+            Assert.Equal(2, mapped);
+        }
+
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void ReturnsFallbackIfUnsuccessful()
+        {
+            Result err = new InvalidOperationError();
+
+            var mapped = err.MapOrElse(2, (_, _) => 1);
+
+            Assert.Equal(1, mapped);
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result.MapError{TError}(Func{IResultError, IResult?, TError})"/> method and its overloads.
+    /// </summary>
+    public class MapError
+    {
+        /// <summary>
+        /// Tests whether the method can perform a mapping.
+        /// </summary>
+        [Fact]
+        public void CanMapError()
+        {
+            Result err = new InvalidOperationError();
+
+            var mapped = err.MapError((_, _) => new NotFoundError());
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+        }
+
+        /// <summary>
+        /// Tests whether the method can perform a mapping and overwrite the inner error.
+        /// </summary>
+        [Fact]
+        public void CanMapErrorWithNewInner()
+        {
+            Result err = new InvalidOperationError();
+
+            var mapped = err.MapError((_, _) => (new NotFoundError(), Result.FromError(new InvalidOperationError())));
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+            Assert.NotNull(mapped.Inner);
+            Assert.IsType<InvalidOperationError>(mapped.Inner!.Error);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns a successful result if the original result is successful.
+        /// </summary>
+        [Fact]
+        public void ReturnsSuccessfulIfOriginalIsSuccessful()
+        {
+            var some = Result.FromSuccess();
+
+            var mapped = some.MapError((_, _) => new NotFoundError());
+
+            Assert.True(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method returns a successful result if the original result is successful.
+        /// </summary>
+        [Fact]
+        public void ReturnsSuccessfulIfOriginalIsSuccessfulWithNewInner()
+        {
+            var some = Result.FromSuccess();
+
+            var mapped = some.MapError((_, _) => (new NotFoundError(), Result.FromError(new InvalidOperationError())));
+
+            Assert.True(mapped.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether the method preserves the inner result if the original result has one.
+        /// </summary>
+        [Fact]
+        public void PreservesInnerResult()
+        {
+            Result inner = new NotFoundError();
+            Result err = Result.FromError(new InvalidOperationError(), inner);
+
+            var mapped = err.MapError((_, _) => new NotFoundError());
+
+            Assert.False(mapped.IsSuccess);
+            Assert.IsType<NotFoundError>(mapped.Error);
+            Assert.Equal(mapped.Inner, inner);
+        }
+    }
+
+    /// <summary>
     /// Tests the <see cref="Result.FromSuccess"/> method.
     /// </summary>
     public class FromSuccess
