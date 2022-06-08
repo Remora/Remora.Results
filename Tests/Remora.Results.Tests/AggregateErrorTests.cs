@@ -33,7 +33,7 @@ public class AggregateErrorTests
     /// <summary>
     /// Tests the <see cref="AggregateError.ToString"/> method.
     /// </summary>
-    public class ToString
+    public new class ToString
     {
         /// <summary>
         /// Tests whether the method prints all inner errors.
@@ -42,6 +42,8 @@ public class AggregateErrorTests
         public void PrintsAllInnerErrors()
         {
             Result error1 = new InvalidOperationError();
+
+            // ReSharper disable once NotResolvedInText
             Result error2 = new ArgumentInvalidError("myArgument", "You can't cut back on errors! You'll regret this!");
             Result error3 = new NotFoundError();
             Result error4;

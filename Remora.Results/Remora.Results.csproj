@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>7.1.3</Version>
+        <Version>7.2.0</Version>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Mark some more types with PublicAPI.
-            Use file-scoped namespaces.
-            Update packaging configuration and nuget packages.
+            Improve AggregateError output.
+            Add missing nullability attribute.
+            Add various Rust-style mapping methods.
+            Implement support for explicit conversion of Result&lt;T&gt; to Result.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
