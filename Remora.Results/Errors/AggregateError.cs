@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace Remora.Results;
@@ -56,5 +57,33 @@ public record AggregateError
     public AggregateError(params IResult[] errors)
         : this((IReadOnlyCollection<IResult>)errors)
     {
+    }
+
+    /// <inheritdoc />
+    public override string ToString()
+    {
+        var sb = new StringBuilder($"AggregateError: {this.Message}");
+        sb.AppendLine();
+
+        var index = 0;
+        foreach (var error in this.Errors)
+        {
+            if (error.IsSuccess)
+            {
+                continue;
+            }
+
+            sb.Append($"[{index}]: ");
+            var errorLines = (error.Error.ToString() ?? "Unknown").Split('\n');
+            foreach (var errorLine in errorLines)
+            {
+                sb.Append("\t");
+                sb.AppendLine(errorLine);
+            }
+
+            ++index;
+        }
+
+        return sb.ToString();
     }
 }
