@@ -58,7 +58,7 @@ public class AggregateErrorTests
 
             var aggregate = new AggregateError(error1, error2, error3, error4);
             var errorString = aggregate.ToString();
-            Assert.Equal($"AggregateError: One or more errors occurred.\n[0]: \tInvalidOperationError {{ Message = The requested operation is invalid. }}\n[1]: \tArgumentInvalidError {{ Message = Error in argument myArgument: You can't cut back on errors! You'll regret this!, Name = myArgument }}\n[2]: \tNotFoundError {{ Message = The searched-for entity was not found. }}\n[3]: \tExceptionError {{ Message = Rude!, Exception = System.NotSupportedException: Rude!\n\t{((ExceptionError)error4.Error!).Exception.StackTrace} }}\n", errorString);
+            Assert.Equal($"AggregateError {{ Message = One or more errors occurred.\n[0]: \tInvalidOperationError {{ Message = The requested operation is invalid. }}\n[1]: \tArgumentInvalidError {{ Message = Error in argument myArgument: You can't cut back on errors! You'll regret this!, Name = myArgument }}\n[2]: \tNotFoundError {{ Message = The searched-for entity was not found. }}\n[3]: \tExceptionError {{ Message = Rude!, Exception = System.NotSupportedException: Rude!\n\t{((ExceptionError)error4.Error!).Exception.StackTrace} }}\n, Errors = Remora.Results.IResult[] }}", errorString);
         }
     }
 }

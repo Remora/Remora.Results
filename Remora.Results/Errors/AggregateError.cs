@@ -38,7 +38,7 @@ public record AggregateError
 (
     IReadOnlyCollection<IResult> Errors,
     string Message = "One or more errors occurred."
-) : ResultError(Message)
+) : ResultError(BuildMessage(Message, Errors))
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AggregateError"/> class.
@@ -59,14 +59,13 @@ public record AggregateError
     {
     }
 
-    /// <inheritdoc />
-    public override string ToString()
+    private static string BuildMessage(string message, IReadOnlyCollection<IResult> errors)
     {
-        var sb = new StringBuilder($"AggregateError: {this.Message}");
+        var sb = new StringBuilder(message);
         sb.AppendLine();
 
         var index = 0;
-        foreach (var error in this.Errors)
+        foreach (var error in errors)
         {
             if (error.IsSuccess)
             {
