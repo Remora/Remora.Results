@@ -32,10 +32,10 @@
         <EmbedAllSources>true</EmbedAllSources>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-        <RepositoryUrl>https://github.com/Nihlus/Remora</RepositoryUrl>
-        <RepositoryBranch>master</RepositoryBranch>
+        <RepositoryUrl>https://github.com/Remora/Remora</RepositoryUrl>
+        <RepositoryBranch>main</RepositoryBranch>
         <PackageOutputPath>$(SolutionDir)/nuget</PackageOutputPath>
-        <PackageProjectUrl>https://github.com/Nihlus/Remora.Results</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Remora/Remora.Results</PackageProjectUrl>
         <PackageTags>remora</PackageTags>
         <PackageIcon>shark.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
