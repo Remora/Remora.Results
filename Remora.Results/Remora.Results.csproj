@@ -1,4 +1,4 @@
-<Project Sdk="Remora.Sdk/1.0.0-preview2">
+<Project Sdk="Remora.Sdk/1.0.0-preview6">
 
     <PropertyGroup>
         <LibraryFrameworks>netstandard2.0;netstandard2.1;net6.0</LibraryFrameworks>
