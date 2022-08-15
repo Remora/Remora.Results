@@ -1,4 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Remora.Sdk/1.0.0-preview2">
+
+    <PropertyGroup>
+        <LibraryFrameworks>netstandard2.0;netstandard2.1;net6.0</LibraryFrameworks>
+    </PropertyGroup>
 
     <PropertyGroup>
         <Version>7.2.1</Version>

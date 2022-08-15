@@ -1,9 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <IsPackable>false</IsPackable>
-    </PropertyGroup>
+<Project Sdk="Remora.Tests.Sdk/1.0.0-preview2">
 
     <ItemGroup>
         <ProjectReference Include="..\..\Remora.Results.Analyzers\Remora.Results.Analyzers.csproj" />

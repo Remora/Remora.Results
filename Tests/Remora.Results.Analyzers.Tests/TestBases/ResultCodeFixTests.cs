@@ -4,7 +4,7 @@
 //  Author:
 //       Jarl Gullberg <jarl.gullberg@gmail.com>
 //
-//  Copyright (c) 2017 Jarl Gullberg
+//  Copyright (c) Jarl Gullberg
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -51,7 +51,7 @@ public abstract class ResultCodeFixTests<TAnalyzer, TCodeFix> : CSharpCodeFixTes
             Path.Combine("ref", "net6.0")
         );
         #else
-         ReferenceAssemblies = ReferenceAssemblies.Net.Net50;
+        this.ReferenceAssemblies = ReferenceAssemblies.Net.Net50;
         #endif
         this.TestState.AdditionalReferences.Add(typeof(Result).Assembly);
     }

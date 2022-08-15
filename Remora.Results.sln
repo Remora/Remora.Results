@@ -5,8 +5,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "metadata", ".\", "{F1A57014
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
-		stylecop.json = stylecop.json
-		stylecop.ruleset = stylecop.ruleset
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
@@ -16,9 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results.Tests", "Tests\Remora.Results.Tests\Remora.Results.Tests.csproj", "{62C4B205-5F47-48FA-8E1E-D0E844B9D258}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{30449774-E764-4161-89E6-2204B87338FC}"
-ProjectSection(SolutionItems) = preProject
-	Tests\Directory.Build.props = Tests\Directory.Build.props
-EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remora.Results.Analyzers", "Remora.Results.Analyzers\Remora.Results.Analyzers.csproj", "{B27B69EB-7C3A-4983-8CA5-9735D97FCEC0}"
 EndProject

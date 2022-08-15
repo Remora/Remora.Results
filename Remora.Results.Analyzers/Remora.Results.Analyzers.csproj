@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Remora.Sdk/1.0.0-preview2">
     <PropertyGroup>
         <!--suppress MsbuildTargetFrameworkTagInspection -->
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
@@ -7,10 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
 
         <!-- No need for build output, since this is an analyzer -->
-        <IncludeSymbols>false</IncludeSymbols>
-        <IncludeSource>false</IncludeSource>
-        <EmbedUntrackedSources>false</EmbedUntrackedSources>
-        <EmbedAllSources>false</EmbedAllSources>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <NoPackageAnalysis>true</NoPackageAnalysis>
     </PropertyGroup>
@@ -27,5 +22,4 @@
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
-
 </Project>
