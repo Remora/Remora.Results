@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Version>7.2.2</Version>
+        <VersionPrefix>7.2.2</VersionPrefix>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
