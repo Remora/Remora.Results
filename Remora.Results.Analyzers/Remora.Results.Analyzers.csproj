@@ -1,4 +1,4 @@
-<Project Sdk="Remora.Sdk/1.0.0-preview6">
+<Project Sdk="Remora.Sdk/1.0.0">
     <PropertyGroup>
         <!--suppress MsbuildTargetFrameworkTagInspection -->
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Version>1.0.0-preview3</Version>
+        <Version>1.0.0-preview4</Version>
     </PropertyGroup>
 
     <ItemGroup>
