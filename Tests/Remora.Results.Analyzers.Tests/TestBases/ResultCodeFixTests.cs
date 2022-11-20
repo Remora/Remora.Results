@@ -43,16 +43,13 @@ public abstract class ResultCodeFixTests<TAnalyzer, TCodeFix> : CSharpCodeFixTes
     /// </summary>
     protected ResultCodeFixTests()
     {
-        #if NET6_0
         this.ReferenceAssemblies = new ReferenceAssemblies
         (
-            "net6.0",
-            new PackageIdentity("Microsoft.NETCore.App.Ref", "6.0.0"),
-            Path.Combine("ref", "net6.0")
+            "net7.0",
+            new PackageIdentity("Microsoft.NETCore.App.Ref", "7.0.0"),
+            Path.Combine("ref", "net7.0")
         );
-        #else
-        this.ReferenceAssemblies = ReferenceAssemblies.Net.Net50;
-        #endif
+
         this.TestState.AdditionalReferences.Add(typeof(Result).Assembly);
     }
 }
