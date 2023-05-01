@@ -1,7 +1,7 @@
 <Project Sdk="Remora.Sdk/2.0.1">
 
     <PropertyGroup>
-        <LibraryFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</LibraryFrameworks>
+        <LibraryFrameworks>net461;netstandard2.0;netstandard2.1;net6.0;net7.0</LibraryFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -19,4 +19,12 @@
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
 
+    <Choose>
+        <When Condition="'$(TargetFramework)' == 'net461'">
+            <ItemGroup>
+                <PackageReference Include="System.ValueTuple" Version="4.5.0"/>
+            </ItemGroup>
+        </When>
+    </Choose>
+    
 </Project>
