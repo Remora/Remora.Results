@@ -19,4 +19,4 @@ dotnet pack -c Release
 Get it on [NuGet][1].
 
 
-[1]: https://www.nuget.org/packages/Remora.Results.Abstractions/
+[1]: https://www.nuget.org/packages/Remora.Results/
