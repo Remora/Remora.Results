@@ -149,6 +149,17 @@ public readonly struct Result : IResult
         => new(result.Error, result);
 
     /// <summary>
+    /// Deconstructs the result into its constituents parts.
+    /// </summary>
+    /// <param name="isSuccess">Indicates whether the result was successful.</param>
+    /// <param name="error">The error, if any.</param>
+    public void Deconstruct(out bool isSuccess, out IResultError? error)
+    {
+        isSuccess = this.IsSuccess;
+        error = this.Error;
+    }
+
+    /// <summary>
     /// Converts an error into a failed result.
     /// </summary>
     /// <param name="error">The error.</param>
@@ -348,6 +359,30 @@ public readonly struct Result<TEntity> : IResult
     /// <returns>The failed result.</returns>
     public static Result<TEntity> FromError(Result result)
         => new(default, result.Error, result);
+
+    /// <summary>
+    /// Deconstructs the result into its constituents parts.
+    /// </summary>
+    /// <param name="isSuccess">Indicates whether the result was successful.</param>
+    /// <param name="error">The error, if any.</param>
+    /// <param name="entity">The value, if any.</param>
+    public void Deconstruct(out bool isSuccess, out IResultError? error, out TEntity? entity)
+    {
+        isSuccess = this.IsSuccess;
+        entity = this.Entity;
+        error = this.Error;
+    }
+
+    /// <summary>
+    /// Deconstructs the result into its constituents parts.
+    /// </summary>
+    /// <param name="isSuccess">Indicates whether the result was successful.</param>
+    /// <param name="entity">The error, if any.</param>
+    public void Deconstruct(out bool isSuccess, out TEntity? entity)
+    {
+        isSuccess = this.IsSuccess;
+        entity = this.Entity;
+    }
 
     /// <summary>
     /// Explicitly converts a value result into a plain result.
