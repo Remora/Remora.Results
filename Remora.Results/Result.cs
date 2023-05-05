@@ -167,7 +167,7 @@ public readonly struct Result : IResult
 
 /// <inheritdoc />
 [PublicAPI]
-public readonly struct Result<TEntity> : IResult
+public readonly struct Result<TEntity> : IResult<TEntity>
 {
     /// <summary>
     /// Gets the entity returned by the result.

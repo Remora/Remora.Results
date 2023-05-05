@@ -25,8 +25,10 @@ using JetBrains.Annotations;
 
 namespace Remora.Results;
 
+#pragma warning disable SA1402
+
 /// <summary>
-/// Represents the public API of an interface.
+/// Represents the public API of a result.
 /// </summary>
 [PublicAPI]
 public interface IResult
@@ -46,4 +48,18 @@ public interface IResult
     /// Gets the inner result, if any.
     /// </summary>
     IResult? Inner { get; }
+}
+
+/// <summary>
+/// Represents the public API of a result with a contained value.
+/// </summary>
+/// <typeparam name="TEntity">The type of the contained value.</typeparam>
+[PublicAPI]
+public interface IResult<out TEntity> : IResult
+{
+    /// <summary>
+    /// Gets the entity returned by the result.
+    /// </summary>
+    [AllowNull]
+    TEntity Entity { get; }
 }
