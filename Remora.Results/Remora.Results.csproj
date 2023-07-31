@@ -5,16 +5,14 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>7.2.3</VersionPrefix>
+        <VersionPrefix>7.3.0</VersionPrefix>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Fix AggregateError message.
-            Improve AggregateError output.
-            Add missing nullability attribute.
-            Add various Rust-style mapping methods.
-            Implement support for explicit conversion of Result&lt;T&gt; to Result.
+            Mark library as AOT-compatible.
+            Add entity interface for parity.
+            Add .NET Framework 4.6.1 as a target.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
@@ -26,5 +24,5 @@
             </ItemGroup>
         </When>
     </Choose>
-    
+
 </Project>
