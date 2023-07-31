@@ -1,4 +1,4 @@
-<Project Sdk="Remora.Tests.Sdk/2.0.2">
+<Project Sdk="Remora.Tests.Sdk/2.0.6">
 
     <ItemGroup>
         <ProjectReference Include="..\..\Remora.Results.Analyzers\Remora.Results.Analyzers.csproj" />
