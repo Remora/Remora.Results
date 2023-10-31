@@ -389,4 +389,41 @@ public static class ResultTests
             Assert.IsType<ExceptionError>(result.Error);
         }
     }
+
+    /// <summary>
+    /// Tests the <see cref="Result.SuccessfulResult"/> property.
+    /// </summary>
+    public class SuccessfulResult
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result.SuccessfulResult"/> returns a successful result.
+        /// </summary>
+        [Fact]
+        public void ReturnsASuccessfulResult()
+        {
+            var successful = Result.SuccessfulResult;
+            Assert.True(successful.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result.SuccessfulResult"/> returns a result whose inner property is null.
+        /// </summary>
+        [Fact]
+        public void ReturnsAResultWhoseInnerPropertyIsNull()
+        {
+            var successful = Result.SuccessfulResult;
+            Assert.Null(successful.Inner);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result.SuccessfulResult"/> always returns equal instances.
+        /// </summary>
+        [Fact]
+        public void ReturnsEqualInstances()
+        {
+            var successful1 = Result.SuccessfulResult;
+            var successful2 = Result.SuccessfulResult;
+            Assert.Equal(successful1, successful2);
+        }
+    }
 }

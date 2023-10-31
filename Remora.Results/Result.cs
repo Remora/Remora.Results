@@ -43,6 +43,20 @@ public readonly struct Result : IResult
     public IResultError? Error { get; }
 
     /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This property returns a result whose <see cref="Error"/> property is set to null, therefore <see cref="IsSuccess"/> returns true.
+    /// The <see cref="Inner"/> property is also set to null.
+    /// </para>
+    /// <para>
+    /// This is an equivalent of <see cref="FromSuccess"/>.
+    /// </para>
+    /// </remarks>
+    public static Result SuccessfulResult => FromSuccess();
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Result"/> struct.
     /// </summary>
     /// <param name="error">The error, if any.</param>
