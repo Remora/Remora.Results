@@ -416,14 +416,14 @@ public static class ResultTests
         }
 
         /// <summary>
-        /// Tests whether <see cref="Result.SuccessfulResult"/> always returns equal instances.
+        /// Tests whether <see cref="Result.SuccessfulResult"/> always returns same instance.
         /// </summary>
         [Fact]
-        public void ReturnsEqualInstances()
+        public void ReturnsSameInstance()
         {
             var successful1 = Result.SuccessfulResult;
             var successful2 = Result.SuccessfulResult;
-            Assert.Equal(successful1, successful2);
+            Assert.Same(successful1, successful2);
         }
     }
 }

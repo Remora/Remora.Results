@@ -32,6 +32,17 @@ namespace Remora.Results;
 [PublicAPI]
 public readonly struct Result : IResult
 {
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This property returns a result whose <see cref="Error"/> property is set to null, therefore <see cref="IsSuccess"/> returns true.
+    /// The <see cref="Inner"/> property is also set to null.
+    /// </para>
+    /// </remarks>
+    public static IResult SuccessfulResult { get; } = FromSuccess();
+
     /// <inheritdoc />
     [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccess => this.Error is null;
@@ -41,20 +52,6 @@ public readonly struct Result : IResult
 
     /// <inheritdoc />
     public IResultError? Error { get; }
-
-    /// <summary>
-    /// Gets a successful result.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This property returns a result whose <see cref="Error"/> property is set to null, therefore <see cref="IsSuccess"/> returns true.
-    /// The <see cref="Inner"/> property is also set to null.
-    /// </para>
-    /// <para>
-    /// This is an equivalent of <see cref="FromSuccess"/>.
-    /// </para>
-    /// </remarks>
-    public static Result SuccessfulResult => FromSuccess();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Result"/> struct.
