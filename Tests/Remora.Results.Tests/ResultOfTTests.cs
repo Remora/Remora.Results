@@ -601,12 +601,12 @@ public static class ResultOfTTests
     }
 
     /// <summary>
-    /// Tests the <see cref="Result.Success"/> property.
+    /// Tests the <see cref="Result{T}.Success"/> property.
     /// </summary>
     public class Success
     {
         /// <summary>
-        /// Tests whether <see cref="Result.Success"/> returns a successful result.
+        /// Tests whether <see cref="Result{T}.Success"/> returns a successful result.
         /// </summary>
         [Fact]
         public void ReturnsASuccessfulResult()
@@ -616,7 +616,7 @@ public static class ResultOfTTests
         }
 
         /// <summary>
-        /// Tests whether <see cref="Result.Success"/> returns equal instances.
+        /// Tests whether <see cref="Result{T}.Success"/> returns equal instances.
         /// </summary>
         [Fact]
         public void ReturnsEqualInstances()
@@ -628,12 +628,12 @@ public static class ResultOfTTests
     }
 
     /// <summary>
-    /// Tests the <see cref="Result.BoxedSuccess"/> property.
+    /// Tests the <see cref="Result{T}.BoxedSuccess"/> property.
     /// </summary>
     public class BoxedSuccess
     {
         /// <summary>
-        /// Tests whether <see cref="Result.BoxedSuccess"/> returns a successful result.
+        /// Tests whether <see cref="Result{T}.BoxedSuccess"/> returns a successful result.
         /// </summary>
         [Fact]
         public void ReturnsASuccessfulResult()
@@ -643,7 +643,7 @@ public static class ResultOfTTests
         }
 
         /// <summary>
-        /// Tests whether <see cref="Result.BoxedSuccess"/> always returns the same instance for the same T.
+        /// Tests whether <see cref="Result{T}.BoxedSuccess"/> always returns the same instance for the same T.
         /// </summary>
         [Fact]
         public void ReturnsTheSameInstanceForTheSameT()
