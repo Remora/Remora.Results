@@ -35,13 +35,15 @@ public readonly struct Result : IResult
     /// <summary>
     /// Gets a successful result.
     /// </summary>
+    public static Result Success => FromSuccess();
+
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
     /// <remarks>
-    /// <para>
-    /// This property returns a result whose <see cref="Error"/> property is set to null, therefore <see cref="IsSuccess"/> returns true.
-    /// The <see cref="Inner"/> property is also set to null.
-    /// </para>
+    /// The returned instance is a boxed singleton.
     /// </remarks>
-    public static IResult SuccessfulResult { get; } = FromSuccess();
+    public static IResult BoxedSuccess { get; } = FromSuccess();
 
     /// <inheritdoc />
     [MemberNotNullWhen(false, nameof(Error))]
@@ -180,6 +182,19 @@ public readonly struct Result : IResult
 [PublicAPI]
 public readonly struct Result<TEntity> : IResult<TEntity>
 {
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    public static Result<TEntity> Success => new(default, default, default);
+
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    /// <remarks>
+    /// The returned instance is a boxed singleton.
+    /// </remarks>
+    public static IResult BoxedSuccess { get; } = new Result<TEntity>(default, default, default);
+
     /// <summary>
     /// Gets the entity returned by the result.
     /// </summary>
