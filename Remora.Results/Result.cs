@@ -35,7 +35,7 @@ public readonly struct Result : IResult
     /// <summary>
     /// Gets a successful result.
     /// </summary>
-    public static Result Success => FromSuccess();
+    public static Result Success { get; } = FromSuccess();
 
     /// <summary>
     /// Gets a successful result.
@@ -185,7 +185,7 @@ public readonly struct Result<TEntity> : IResult<TEntity>
     /// <summary>
     /// Gets a successful result.
     /// </summary>
-    public static Result<TEntity> Success => new(default, default, default);
+    public static Result<TEntity> Success { get; } = new(default, default, default);
 
     /// <summary>
     /// Gets a successful result.
