@@ -599,4 +599,58 @@ public static class ResultOfTTests
             Assert.IsType<ExceptionError>(result.Error);
         }
     }
+
+    /// <summary>
+    /// Tests the <see cref="Result{T}.Success"/> property.
+    /// </summary>
+    public class Success
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.Success"/> returns a successful result.
+        /// </summary>
+        [Fact]
+        public void ReturnsASuccessfulResult()
+        {
+            var successful = Result<int>.Success;
+            Assert.True(successful.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.Success"/> returns equal instances.
+        /// </summary>
+        [Fact]
+        public void ReturnsEqualInstances()
+        {
+            var successful1 = Result<int>.Success;
+            var successful2 = Result<int>.Success;
+            Assert.Equal(successful1, successful2);
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result{T}.BoxedSuccess"/> property.
+    /// </summary>
+    public class BoxedSuccess
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.BoxedSuccess"/> returns a successful result.
+        /// </summary>
+        [Fact]
+        public void ReturnsASuccessfulResult()
+        {
+            var successful = Result<int>.BoxedSuccess;
+            Assert.True(successful.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result{T}.BoxedSuccess"/> always returns the same instance for the same T.
+        /// </summary>
+        [Fact]
+        public void ReturnsTheSameInstanceForTheSameT()
+        {
+            var successful1 = Result<int>.BoxedSuccess;
+            var successful2 = Result<int>.BoxedSuccess;
+            Assert.Same(successful1, successful2);
+        }
+    }
 }

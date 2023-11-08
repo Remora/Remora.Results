@@ -389,4 +389,58 @@ public static class ResultTests
             Assert.IsType<ExceptionError>(result.Error);
         }
     }
+
+    /// <summary>
+    /// Tests the <see cref="Result.Success"/> property.
+    /// </summary>
+    public class Success
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result.Success"/> returns a successful result.
+        /// </summary>
+        [Fact]
+        public void ReturnsASuccessfulResult()
+        {
+            var successful = Result.Success;
+            Assert.True(successful.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result.Success"/> returns equal instances.
+        /// </summary>
+        [Fact]
+        public void ReturnsEqualInstances()
+        {
+            var successful1 = Result.Success;
+            var successful2 = Result.Success;
+            Assert.Equal(successful1, successful2);
+        }
+    }
+
+    /// <summary>
+    /// Tests the <see cref="Result.BoxedSuccess"/> property.
+    /// </summary>
+    public class BoxedSuccess
+    {
+        /// <summary>
+        /// Tests whether <see cref="Result.BoxedSuccess"/> returns a successful result.
+        /// </summary>
+        [Fact]
+        public void ReturnsASuccessfulResult()
+        {
+            var successful = Result.BoxedSuccess;
+            Assert.True(successful.IsSuccess);
+        }
+
+        /// <summary>
+        /// Tests whether <see cref="Result.BoxedSuccess"/> always returns the same instance.
+        /// </summary>
+        [Fact]
+        public void ReturnsTheSameInstance()
+        {
+            var successful1 = Result.BoxedSuccess;
+            var successful2 = Result.BoxedSuccess;
+            Assert.Same(successful1, successful2);
+        }
+    }
 }

@@ -32,6 +32,19 @@ namespace Remora.Results;
 [PublicAPI]
 public readonly struct Result : IResult
 {
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    public static Result Success { get; } = FromSuccess();
+
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    /// <remarks>
+    /// The returned instance is a boxed singleton.
+    /// </remarks>
+    public static IResult BoxedSuccess { get; } = FromSuccess();
+
     /// <inheritdoc />
     [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccess => this.Error is null;
@@ -169,6 +182,19 @@ public readonly struct Result : IResult
 [PublicAPI]
 public readonly struct Result<TEntity> : IResult<TEntity>
 {
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    public static Result<TEntity> Success { get; } = new(default, default, default);
+
+    /// <summary>
+    /// Gets a successful result.
+    /// </summary>
+    /// <remarks>
+    /// The returned instance is a boxed singleton.
+    /// </remarks>
+    public static IResult BoxedSuccess { get; } = new Result<TEntity>(default, default, default);
+
     /// <summary>
     /// Gets the entity returned by the result.
     /// </summary>
