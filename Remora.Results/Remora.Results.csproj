@@ -5,14 +5,12 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>7.3.0</VersionPrefix>
+        <VersionPrefix>7.4.0</VersionPrefix>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
         <PackageReleaseNotes>
-            Mark library as AOT-compatible.
-            Add entity interface for parity.
-            Add .NET Framework 4.6.1 as a target.
+            Add static cached properties for quick access to successful results.
         </PackageReleaseNotes>
         <PackageTags>$(PackageTags);algebraic datatype;result;results</PackageTags>
     </PropertyGroup>
