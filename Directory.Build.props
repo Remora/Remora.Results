@@ -18,8 +18,12 @@
         <PackageTags>remora;monad;results</PackageTags>
     </PropertyGroup>
 
-    <!-- AOT-related properties -->
     <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <!-- AOT-related properties -->
+    <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">
         <IsAotCompatible>true</IsAotCompatible>
     </PropertyGroup>
 </Project>
