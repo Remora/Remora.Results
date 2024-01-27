@@ -30,5 +30,10 @@ internal static class DiagnosticCategories
     /// <summary>
     /// Gets the category string for analyzers that flag redundant code.
     /// </summary>
-    internal static string Redundancies => "Redundancies in Code";
+    internal const string Redundancies = "Redundancies in Code";
+
+    /// <summary>
+    /// Gets the category string for analyzers that flag improper usage.
+    /// </summary>
+    internal const string Usage = "Usage";
 }
