@@ -56,7 +56,7 @@ jobs:
           keep: 4
           names: |
             Remora.Results
-            Remora.Results.Analuyzers
+            Remora.Results.Analyzers
 
       - name: Push to GitHub Feed
         run: |
