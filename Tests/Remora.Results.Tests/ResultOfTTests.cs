@@ -210,13 +210,9 @@ public static class ResultOfTTests
             Assert.Equal(mapped.Inner, inner);
         }
 
-        private class Base
-        {
-        }
+        private class Base;
 
-        private class Derived : Base
-        {
-        }
+        private class Derived : Base;
     }
 
     /// <summary>
@@ -252,13 +248,9 @@ public static class ResultOfTTests
             Assert.NotSame(some.Entity, mapped);
         }
 
-        private class Base
-        {
-        }
+        private class Base;
 
-        private class Derived : Base
-        {
-        }
+        private class Derived : Base;
     }
 
     /// <summary>
