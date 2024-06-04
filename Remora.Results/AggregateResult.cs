@@ -38,9 +38,12 @@ public readonly struct AggregateResult : IResult
     /// <summary>
     /// Gets an <see cref="AggregateError"/> containing the failed results.
     /// </summary>
-    public IResultError? Error => new AggregateError(_lookup[false].ToArray());
+    public IResultError Error => new AggregateError(_lookup[false].ToArray());
 
     /// <inheritdoc />
+    /// <remarks>
+    /// Always returns null.
+    /// </remarks>
     public IResult? Inner { get; } = null;
 
     /// <summary>

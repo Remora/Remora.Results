@@ -20,7 +20,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
@@ -37,12 +36,21 @@ namespace Remora.Results;
 public class AggregateResultBuilder
 {
     private List<IResult> _results = new();
+    private bool _allSuccessful = true;
 
     /// <summary>
     /// Adds the result to the collection.
     /// </summary>
     /// <param name="result">The result to add.</param>
-    public void Add(IResult result) => _results.Add(result);
+    public void Add(IResult result)
+    {
+        if (!result.IsSuccess)
+        {
+            _allSuccessful = false;
+        }
+
+        _results.Add(result);
+    }
 
     /// <summary>
     /// Builds the <see cref="AggregateResult"/>.
@@ -50,6 +58,6 @@ public class AggregateResultBuilder
     /// <returns>A new AggregateResult.</returns>
     public AggregateResult Build()
     {
-        throw new NotImplementedException();
+        return new AggregateResult(_allSuccessful, _results.ToArray());
     }
 }
