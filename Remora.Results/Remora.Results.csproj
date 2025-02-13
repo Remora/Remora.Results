@@ -1,11 +1,11 @@
 <Project Sdk="Remora.Sdk">
 
     <PropertyGroup>
-        <LibraryFrameworks>net461;netstandard2.0;netstandard2.1;net6.0;net7.0</LibraryFrameworks>
+        <LibraryFrameworks>net461;netstandard2.0;netstandard2.1;net8.0;net9.0</LibraryFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>7.4.1</VersionPrefix>
+        <VersionPrefix>8.0.0</VersionPrefix>
         <Description>
             A basic implementation of a descriptive algebraic data type for C#.
         </Description>
