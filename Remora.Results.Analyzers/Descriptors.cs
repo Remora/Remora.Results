@@ -54,4 +54,17 @@ internal static class Descriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true
     );
+
+    /// <summary>
+    /// Holds the descriptor for unused results.
+    /// </summary>
+    internal static readonly DiagnosticDescriptor REM0003UnusedResult = new
+    (
+        id: "REM0003",
+        title: "Unused result",
+        messageFormat: "Result from \"{0}\" is never used.",
+        category: DiagnosticCategories.Usage,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true
+    );
 }
