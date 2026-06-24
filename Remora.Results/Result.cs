@@ -133,6 +133,10 @@ public readonly struct Result : IResult
     public static Result FromSuccess()
         => new(default, default);
 
+    /// <inheritdoc cref=”Result{TEntity}.FromSuccess(TEntity)"/>
+    public static Result<TEntity> FromSuccess<TEntity>(TEntity entity)
+        => Result<TEntity>.FromSuccess(entity);
+
     /// <summary>
     /// Creates a new failed result.
     /// </summary>
